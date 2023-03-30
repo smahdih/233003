@@ -39,9 +39,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        view('book.show', [
-
-        ]);
+      return view('book.show', compact('book'));
     }
 
     /**
@@ -59,8 +57,10 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        dd($request->name);
-        $book->update($request);
+        
+        $book->update($request->validated());
+        session()->flash('success','your info successfully updated');
+        return redirect()->route('books.index');
     }
 
     /**
